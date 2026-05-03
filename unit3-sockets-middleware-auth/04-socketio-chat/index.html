@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>INT222 Chat App</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
+        #chat { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #messages { height: 300px; overflow-y: scroll; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+        .msg { margin-bottom: 8px; }
+        .msg b { color: #007bff; }
+        input { width: 75%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="chat">
+        <h2>🚀 Real-time Chat</h2>
+        <div id="messages"></div>
+        <input id="input" placeholder="Type a message..." autocomplete="off">
+        <button id="send">Send</button>
+    </div>
+
+    <!-- This script is served automatically by Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io(); // Connect to server
+        const messages = document.getElementById('messages');
+        const input = document.getElementById('input');
+        const btn = document.getElementById('send');
+
+        // --- 1. RECEIVING MESSAGES ---
+        socket.on('chat message', (data) => {
+            const div = document.createElement('div');
+            div.className = 'msg';
+            div.innerHTML = `<b>${data.user}:</b> ${data.text}`;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight; // Auto-scroll
+        });
+
+        // --- 2. SENDING MESSAGES ---
+        const sendMessage = () => {
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        };
+
+        btn.onclick = sendMessage;
+        input.onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 🎯 Defining a Model
+// This automatically creates a table in PostgreSQL!
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  age       Int      @default(18)
+  createdAt DateTime @default(now())
+  posts     Post[]   // Relationship: A user can have many posts
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+}

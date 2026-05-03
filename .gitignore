@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+*.log
+unit1-nodejs-fundamentals/08-fs-data/
+unit1-nodejs-fundamentals/user-data.json
+unit1-nodejs-fundamentals/large-input.txt
+unit1-nodejs-fundamentals/output-copy.txt
+unit1-nodejs-fundamentals/piped-output.txt
+unit1-nodejs-fundamentals/text-to-zip.txt*
+unit1-nodejs-fundamentals/restored-text.txt
+.env
