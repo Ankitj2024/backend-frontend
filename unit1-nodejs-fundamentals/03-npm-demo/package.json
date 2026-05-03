@@ -1,0 +1,13 @@
+{
+  "name": "03-npm-demo",
+  "version": "1.0.0",
+  "description": "Learning NPM (Node Package Manager) - INT222 Lesson 03",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "greet": "echo Hello from npm scripts!"
+  },
+  "keywords": ["learning", "npm", "int222"],
+  "author": "INT222 Student",
+  "license": "ISC"
+}
